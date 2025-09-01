@@ -90,3 +90,64 @@ footer {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
+
+li {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-color: #d1d5db;
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+li input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+li p {
+  flex-grow: 1;
+  margin: 0;
+  font-size: 16px;
+  color: #374151;
+  font-weight: 400;
+}
+
+li p[style*="line-through"] {
+  color: #9ca3af;
+  opacity: 0.7;
+}
+li:has(input[type="checkbox"]:checked) {
+  background: #f9fafb;
+  border-color: #d1fae5;
+}
