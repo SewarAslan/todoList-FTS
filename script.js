@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let todos = [];
   fetchTodos();
-
   addTaskBtn.addEventListener("click", function () {
     addTask();
   });
@@ -100,6 +99,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   async function fetchTodos() {
+    const saved = localStorage.getItem("todos");
+    if (saved) {
+      loadTodos();
+      return;
+    }
     try {
       let response = await fetch("https://dummyjson.com/todos");
       let result = await response.json();
