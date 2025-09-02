@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const taskCountElement = document.getElementById("taskCount");
 
   let todos = [];
-  loadTodos();
+  fetchTodos();
 
   addTaskBtn.addEventListener("click", function () {
     addTask();
@@ -88,14 +88,36 @@ document.addEventListener("DOMContentLoaded", function () {
     renderTasks(filtered);
   }
 
-  function saveTodos() {
-    localStorage.setItem("todos", JSON.stringify(todos));
+  function saveTodos(todoArray = todos) {
+    localStorage.setItem("todos", JSON.stringify(todoArray));
   }
   function loadTodos() {
     const saved = localStorage.getItem("todos");
     if (saved) {
       todos = JSON.parse(saved);
       renderTasks();
+    }
+  }
+
+  async function fetchTodos() {
+    try {
+      let response = await fetch("https://dummyjson.com/todos");
+      let result = await response.json();
+
+      const apiTodos = result.todos.map((todo) => ({
+        id: todo.id,
+        text: todo.todo,
+        completed: todo.completed,
+      }));
+
+      const shuffled = apiTodos.sort(() => 0.5 - Math.random());
+      const randomFive = shuffled.slice(0, 5);
+      todos.push(...randomFive);
+      renderTasks();
+      saveTodos();
+    } catch {
+      console.log("Failed to fetch todos, loading from localStorage");
+      loadTodos();
     }
   }
 });
